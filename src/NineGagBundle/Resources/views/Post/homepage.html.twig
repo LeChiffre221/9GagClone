@@ -1,0 +1,61 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+    <button>Ajouter un post</button>
+
+    {% for post in postList %}
+        <div data-postId="{{ post.id }}">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.image }}</p>
+            <p><button id="buttonUp">up</button>{{ post.score }}<button id="buttonUp">down</button></p>
+            <p>{{ post.user.login }}</p>
+            <ul>
+            {% for comment in post.comments %}
+                <li>{{ comment.content }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on("click", "buttonUp", function(){
+            var postId = $(this).closest("div").attr("data-postId");
+            var urlScoreUp =  Routing.generate('nine_gag_scoreChange', {'postId': postId, 'valueToChange': 1});
+
+            $.ajax({
+                type: "GET",
+                url: urlScoreUp,
+                data: id,
+                async: false,
+                dataType: 'json',
+
+                success: function(data){
+
+                    $('#form_edit_famillePlat').html(
+                            $(data.render)
+                    );
+
+                    $('#pop_up_editFamillePlat').modal(
+                            {show:true}
+                    );
+
+                    console.log($('#pop_up_editFamillePlat :submit').text('Editer'));
+
+
+                    $('#pop_up_editFamillePlat .multiselect').attr('class' ,  'form-control multiselect2');
+
+                    $('.multiselect2').multiselect({
+                        showCheckbox  : false,
+                        placeholder: 'Selectionner des options',
+
+
+                    });
+        })
+    </script>
+
+{% endblock %}
