@@ -1,0 +1,5 @@
+nine_gag:
+    resource: "@NineGagBundle/Resources/config/routing.yml"
+    prefix:   /
+
+

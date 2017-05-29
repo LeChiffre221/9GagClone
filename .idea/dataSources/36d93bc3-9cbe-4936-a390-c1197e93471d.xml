@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - 9gagclone@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="9gagclone">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="app_menu"/>
+    <schema id="3" name="chamina"/>
+    <schema id="4" name="information_schema"/>
+    <schema id="5" name="menuger_2.0"/>
+    <schema id="6" name="mysql"/>
+    <schema id="7" name="performance_schema"/>
+    <schema id="8" name="suh"/>
+    <schema id="9" name="sys"/>
+  </database-model>
+</dataSource>

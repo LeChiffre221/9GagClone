@@ -1,0 +1,3 @@
+nine_gag_homepage:
+    path:     /
+    defaults: { _controller: NineGagBundle:Default:index }

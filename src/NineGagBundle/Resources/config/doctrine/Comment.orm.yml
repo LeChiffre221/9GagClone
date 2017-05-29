@@ -1,0 +1,23 @@
+NineGagBundle\Entity\Comment:
+    type: entity
+    table: null
+    repositoryClass: NineGagBundle\Repository\CommentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        content:
+            type: string
+            length: 255
+
+    manyToOne:
+        post:
+          targetEntity: Post
+          inversedBy: comments
+          joinColumn:
+            name: post_id
+            referencedColumnName: id
+    lifecycleCallbacks: {  }
