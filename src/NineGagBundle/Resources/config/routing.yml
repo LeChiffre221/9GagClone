@@ -1,0 +1,28 @@
+nine_gag_homepage:
+    path:     /
+    defaults: { _controller: NineGagBundle:Post:afficherPosts }
+
+nine_gag_afficherPosts:
+    path: /afficherPosts
+    defaults: { _controller: NineGagBundle:Post:afficherPosts}
+    methods: [GET]
+
+nine_gag_scoreChange:
+    path: /changeScore/{idPost}/{valueToChange}
+    defaults: { _controller: NineGagBundle:Post:editScore}
+    methods: [GET]
+    requirements:
+      idPost: \d+
+      valueToChange: -1|1
+    options:
+      expose: true
+   
+nine_gag_addPost:
+    path: /addPost
+    defaults: { _controller: NineGagBundle:Post:addPost}
+    methods: [POST]
+    options:
+      expose: true
+
+
+

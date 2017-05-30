@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Clone 9Gag{% endblock %}</title>
+        {% block stylesheets %}
+            {#            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/materialize/css/materialize.min.css') }}" />#}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+            <link rel="stylesheet" href="{{ asset('cssGeneral.css') }}">
+
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    {% block body %}{% endblock %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        {#            <script src="{{ asset('bundles/materialize/js/materialize.js') }}"></script>#}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+        {#            <script src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>#}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% endblock %}
+</body>
+</html>

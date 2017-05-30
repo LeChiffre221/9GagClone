@@ -1,0 +1,99 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+    <div class="container">
+        <h1 class="center-align">9GagClone</h1>
+        <div class="row">
+            <form id="formPost" method="POST" action="{{path('nine_gag_addPost')}}">
+                {{ form_start(form)}}
+                {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Title'} }) }}
+                {#<div class="file-field input-field col s4">
+                    <div class="btn">
+                        <span>File</span>#}
+                        {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
+                    {#</div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>#}
+                {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
+                {{ form_end(form) }}
+            </form>
+        </div>
+        <div class="container">
+
+            {% for post in postList %}
+                <div class="card col s6 cardPost" data-postId="{{ post.id }}">
+                    <div class="card-content">
+                        <h3 class="card-title activator grey-text text-darken-4 center-align">{{ post.title }}</h3>
+                    </div>
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <p>{{ post.image }}</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <button id="buttonUp" class="buttonChangeScore offset-s3 col s2 green darken-3 btn">up</button>
+                            <p class="score col s2 center-align">{{ post.score }}</p>
+                            <button class="buttonChangeScore col s2 btn red darken-3" id="buttonDown">down</button>
+                            {#            <p>{{ post.user.login }}</p>#}
+                        </div>
+                        {{dump(post.comments)}}
+                        <div class="card-reveal">
+                            {% for comment in post.comments %}
+                                <div class="card">
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">{{ comment.content }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $(document).on('click', '.buttonChangeScore', function () {
+                var button = this;
+                var postId = $(button).closest(".cardPost").attr("data-postId");
+                var urlChangeScore;
+                if ($(button).attr('id') == 'buttonUp') {
+                    urlChangeScore = Routing.generate('nine_gag_scoreChange', {'idPost': postId, 'valueToChange': 1});
+                } else {
+                    urlChangeScore = Routing.generate('nine_gag_scoreChange', {'idPost': postId, 'valueToChange': -1});
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: urlChangeScore,
+                    dataType: 'JSON',
+
+                    success: function (data) {
+                        $(button).closest("div").children(".score").html(data.newScore);
+                    }
+                });
+            });
+
+            /*$('body').on('submit', '#formPost', function (e) {
+                e.preventDefault();
+                console.log("submit");
+                var urlAddPost = Routing.generate('nine_gag_addPost');
+
+                $.ajax({
+                    type: 'POST',
+                    url: urlAddPost,
+                    data: $(this).serialize(),
+                    dataType: 'JSON',
+
+                    success: function (data) {
+
+                    }
+                })
+            });*/
+
+        </script>
+
+    {% endblock %}

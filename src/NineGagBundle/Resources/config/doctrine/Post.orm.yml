@@ -1,0 +1,30 @@
+NineGagBundle\Entity\Post:
+    type: entity
+    table: null
+    repositoryClass: NineGagBundle\Repository\PostRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        image:
+            type: string
+            length: 255
+        score:
+            type: integer
+    manyToOne:
+        user:
+          targetEntity: User
+          joinColumn:
+            name: user_id
+            referencedColumnName: id
+    oneToMany:
+        comments:
+          targetEntity: Comment
+          mappedBy: post
+    lifecycleCallbacks: {  }
