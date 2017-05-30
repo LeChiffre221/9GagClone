@@ -3,7 +3,6 @@
 namespace NineGagBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use NineGagBundle\Entity\Post;
