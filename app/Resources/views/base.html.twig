@@ -8,10 +8,13 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
             <link rel="stylesheet" href="{{ asset('cssGeneral.css') }}">
 
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/materialize/css/materialize.min.css') }}" />
+
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+
     {% block body %}{% endblock %}
 
     {% block javascripts %}
@@ -23,4 +26,12 @@
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     {% endblock %}
 </body>
+
+        {% block body %}{% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('bundles/materialize/js/materialize.js') }}"></script>
+            <script src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>
+        {% endblock %}
+    </body>
 </html>

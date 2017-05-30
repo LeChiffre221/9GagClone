@@ -3,6 +3,7 @@
 namespace NineGagBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use NineGagBundle\Entity\Post;
@@ -68,4 +69,22 @@ class PostController extends Controller {
         }
     }
 
+=======
+
+class PostController extends Controller
+{
+    public function afficherPostsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $postRepository = $em->getRepository('NineGagBundle:Post');
+
+        $postList = $postRepository->findAll();
+
+        return $this->render('NineGagBundle:Post:homepage.html.twig', [
+            'postList' => $postList
+        ]);
+
+    }
+>>>>>>> c80bc44946a722c93eb685bab5e3be5f2e27c495
 }
