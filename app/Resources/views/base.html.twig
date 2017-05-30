@@ -18,20 +18,12 @@
     {% block body %}{% endblock %}
 
     {% block javascripts %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        {#            <script src="{{ asset('bundles/materialize/js/materialize.js') }}"></script>#}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        {#            <script src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>#}
+        <script src="{{ asset('bundles/materialize/js/materialize.js') }}"></script>
+        <script src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     {% endblock %}
 </body>
 
-        {% block body %}{% endblock %}
-
-        {% block javascripts %}
-            <script src="{{ asset('bundles/materialize/js/materialize.js') }}"></script>
-            <script src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>
-        {% endblock %}
-    </body>
+     
 </html>

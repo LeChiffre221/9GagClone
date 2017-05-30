@@ -1,5 +1,8 @@
 nine_gag_homepage:
     path:     /
+    defaults: { _controller: NineGagBundle:Post:afficherPosts}
+
+
 nine_gag_afficherPosts:
     path: /afficherPosts
     defaults: { _controller: NineGagBundle:Post:afficherPosts}
