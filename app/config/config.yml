@@ -8,10 +8,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-<<<<<<< HEAD
     brochures_directory: '%kernel.root_dir%/../web/uploads/images'
-=======
->>>>>>> c80bc44946a722c93eb685bab5e3be5f2e27c495
 
 framework:
     #esi: ~
