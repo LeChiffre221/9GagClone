@@ -1,0 +1,7 @@
+AppBundle\Entity\Post:
+    properties:
+        image:
+           - File:
+                maxSize: 20M
+                mimeTypes: [image/gif, image/jpeg, image/png, image/jpg]
+                mimeTypesMessage: Merci d'ajouter une image valide (gif, jpeg, png)

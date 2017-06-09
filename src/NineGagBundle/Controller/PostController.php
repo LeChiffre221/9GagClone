@@ -3,6 +3,7 @@
 namespace NineGagBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use NineGagBundle\Entity\Post;
@@ -46,25 +47,29 @@ class PostController extends Controller {
 
     public function addPostAction(Request $request) {
 
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+
         $post = new Post();
         $form = $this->get('form.factory')->create(PostType::class, $post);
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $file = $form['image']->getData();
-//            var_dump($request->files);
-//            $file = $request->files->get('image');
-           
-
+            $file = $post->getImage();
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                     $this->getParameter('images_directory'), $fileName
             );
             $post->setImage($fileName);
-
             $em->persist($post);
             $em->flush();
-            return $this->redirectToRoute('nine_gag_afficherPosts');
+            return new JsonResponse([
+                'message' => 'Success!',
+                'result' => $this->renderView('AppBundle:Default:accueil.html.twig', [
+                    'postList' => $this->getListPosts(),
+                    'form' => $form->createView()
+                ])], 200);
         }
     }
 

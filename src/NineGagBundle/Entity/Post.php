@@ -1,6 +1,7 @@
 <?php
 
 namespace NineGagBundle\Entity;
+//use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
@@ -127,6 +128,7 @@ class Post
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setScore(0);
     }
 
     /**

@@ -3,23 +3,22 @@
     <div class="container">
         <h1 class="center-align">9GagClone</h1>
         <div class="row">
-            <form id="formPost" method="POST" action="{{path('nine_gag_addPost')}}">
-                {{ form_start(form)}}
+            <form id="formPost" method="POST" {#action="{{path('nine_gag_addPost')}}"#} enctype="multipart/form-data">
                 {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Title'} }) }}
                 {#<div class="file-field input-field col s4">
                     <div class="btn">
                         <span>File</span>#}
-                        {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
-                    {#</div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                    </div>
-                </div>#}
+                {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
+                {#</div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>#}
                 {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
                 {{ form_end(form) }}
             </form>
         </div>
-        <div class="container">
+        <div class="container listePostes">
 
             {% for post in postList %}
                 <div class="card col s6 cardPost" data-postId="{{ post.id }}">
@@ -27,7 +26,7 @@
                         <h3 class="card-title activator grey-text text-darken-4 center-align">{{ post.title }}</h3>
                     </div>
                     <div class="card-image waves-effect waves-block waves-light">
-                        <p>{{ post.image }}</p>
+                        <img src="{{asset('uploads/images/' ~ post.image)}}"/>
                     </div>
                     <div class="card-content">
                         <div class="row">
@@ -36,7 +35,6 @@
                             <button class="buttonChangeScore col s2 btn red darken-3" id="buttonDown">down</button>
                             {#            <p>{{ post.user.login }}</p>#}
                         </div>
-                        {{dump(post.comments)}}
                         <div class="card-reveal">
                             {% for comment in post.comments %}
                                 <div class="card">
@@ -47,9 +45,9 @@
                             {% endfor %}
                         </div>
                     </div>
+                </div>
+            {% endfor %}
 
-                {% endfor %}
-            </div>
         </div>
     {% endblock %}
 
@@ -77,7 +75,7 @@
                 });
             });
 
-            /*$('body').on('submit', '#formPost', function (e) {
+            $('body').on('submit', '#formPost', function (e) {
                 e.preventDefault();
                 console.log("submit");
                 var urlAddPost = Routing.generate('nine_gag_addPost');
@@ -89,10 +87,10 @@
                     dataType: 'JSON',
 
                     success: function (data) {
-
+                         $("body").closest(".listePostes").html($(data.result).find(".listePostes").children("div"));
                     }
                 })
-            });*/
+            });
 
         </script>
 
