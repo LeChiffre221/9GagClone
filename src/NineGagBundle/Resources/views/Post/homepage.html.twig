@@ -3,21 +3,24 @@
     <div class="container">
         <h1 class="center-align">9GagClone</h1>
         <div class="row">
-            <form id="formPost" method="POST" action="{{path('nine_gag_addPost')}}" enctype="multipart/form-data">
-                {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Title'} }) }}
-                {#<div class="file-field input-field col s4">
-                    <div class="btn">
-                        <span>File</span>#}
-                {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
-                {#</div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                </div>
-            </div>#}
-                {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
-                {{ form_errors(form) }}
-                {{ form_rest(form) }}
-            </form>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                <form id="formPost" method="POST" action="{{path('nine_gag_addPost')}}" enctype="multipart/form-data">
+                    {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Title'} }) }}
+                    {#<div class="file-field input-field col s4">
+                        <div class="btn">
+                            <span>File</span>#}
+                    {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
+                    {#</div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                    </div>#}
+                    {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
+                    {{ form_errors(form) }}
+                    {{ form_rest(form) }}
+                </form>
+            {% endif %}
         </div>
         <div class="container listePostes">
 
