@@ -52,8 +52,8 @@ class PostController extends Controller {
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $file = $form['image']->getData();
-//            var_dump($request->files);
-//            $file = $request->files->get('image');
+            var_dump($request->files);
+            $file = $request->files->get('image');
            
 
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();

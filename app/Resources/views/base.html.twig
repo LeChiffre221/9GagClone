@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Clone 9Gag{% endblock %}</title>
@@ -14,7 +14,13 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-
+    <div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+        {% endif %}
+    </div>
     {% block body %}{% endblock %}
 
     {% block javascripts %}

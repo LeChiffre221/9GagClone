@@ -1,0 +1,39 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+
+<div class="row">
+    <div class="col s6 offset-s3">
+        <div class="card blue-grey grey lighten-5">
+            <div class="card-content ">
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+                    {% if csrf_token %}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    {% endif %}
+
+                    <label for="username">Login : </label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+                    <label for="password">Mot de passe : </label>
+                    <input type="password" id="password" name="_password" required="required" />
+
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    <label for="remember_me">Se souvenir de moi</label>
+                    <br><br>
+                    <input class="btn btn-success" type="submit" id="_submit" name="_submit" value="Se Connecter" />
+
+                        <a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+
+                </form>
+                <br>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

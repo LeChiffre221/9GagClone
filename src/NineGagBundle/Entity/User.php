@@ -1,26 +1,16 @@
 <?php
 
 namespace NineGagBundle\Entity;
-
+use FOS\UserBundle\Model\User as BaseUser;
 /**
  * User
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
      */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $login;
-
-    /**
-     * @var string
-     */
-    private $password;
+    protected $id;
 
 
     /**
