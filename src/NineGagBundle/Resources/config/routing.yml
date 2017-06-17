@@ -24,6 +24,13 @@ nine_gag_addPost:
     methods: [POST]
     options:
       expose: true
+      
+nine_gag_addComment:
+    path: /addComment
+    defaults: { _controller: NineGagBundle:Comment:addComment}
+    methods: [POST]
+    options:
+      expose: true
 
 
 

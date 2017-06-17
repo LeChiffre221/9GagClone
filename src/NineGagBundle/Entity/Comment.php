@@ -21,6 +21,11 @@ class Comment
      * @var \NineGagBundle\Entity\Post
      */
     private $post;
+    
+    /**
+     * @var int
+     */
+    private $idPost;
 
 
     /**
@@ -82,4 +87,14 @@ class Comment
     {
         return $this->post;
     }
+    
+    function getIdPost() {
+        return $this->idPost;
+    }
+
+    function setIdPost($idPost) {
+        $this->idPost = $idPost;
+    }
+
+
 }

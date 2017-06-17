@@ -3,33 +3,29 @@
 namespace NineGagBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use NineGagBundle\Entity\Post;
-use NineGagBundle\Form\PostType;
 use NineGagBundle\Entity\Comment;
 use NineGagBundle\Form\CommentType;
 
-class PostController extends Controller {
+class CommentController extends Controller {
 
-    public function afficherPostsAction($form = null) {
+    public function addCommentAction(Request $request) {
 
-        $formPost = $this->get('form.factory')->create(PostType::class, new Post());
-        $postList = $this->getListPosts();
-        $listFormComment = [];
-        foreach ($postList as $post) {
-            $comment = new Comment();
-            $comment->setPost($post);
-            $formComment = $this->get('form.factory')->create(CommentType::class, $comment);
-            
-            $listFormComment[$post->getId()] = $formComment->createView();
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
-        return $this->render('NineGagBundle:Post:homepage.html.twig', [
-                    'postList' => $this->getListPosts(),
-                    'form' => $formPost->createView(),
-                    'listFormComment' => $listFormComment
-        ]);
+        $comment = new Comment();
+        $form = $this->get('form.factory')->create(CommentType::class, $comment);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $post = $em->getRepository('NineGagBundle:Post')->findOneBy(['id' => $comment->getIdPost()]);
+            $comment->setPost($post);
+            $em->persist($comment);
+            $em->flush();
+            return $this->redirectToRoute('nine_gag_afficherPosts');
+        }
     }
 
     private function getListPosts() {
