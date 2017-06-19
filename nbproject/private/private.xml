@@ -4,11 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Resources/views/Post/homepage.html.twig</file>
+            <file>file:/C:/wamp64/www/9GagClone/app/config/config.yml</file>
             <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Controller/PostController.php</file>
-            <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Resources/config/services.yml</file>
+            <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Entity/Comment.php</file>
             <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Resources/config/validation.yml</file>
             <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Controller/CommentController.php</file>
+            <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Entity/Post.php</file>
             <file>file:/C:/wamp64/www/9GagClone/src/NineGagBundle/Resources/views/Comment/comments.html.twig</file>
+            <file>file:/C:/wamp64/www/9GagClone/web/cssGeneral.css</file>
         </group>
     </open-files>
 </project-private>

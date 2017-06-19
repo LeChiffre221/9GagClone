@@ -2,26 +2,28 @@
 {% block body %}
     <div class="container">
         <h1 class="center-align">9GagClone</h1>
-        <div class="row">
-            <form id="formPost" method="POST" action="{{path('nine_gag_addPost')}}" enctype="multipart/form-data">
-                <div class="row formdiv">
-                    {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Titre'} }) }}
-                    <div class="file-field input-field col s4">
-                        <div class="btn">
-                            <span>File</span>
-                            {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <div class="row">
+                <form id="formPost" method="POST" action="{{path('nine_gag_addPost')}}" enctype="multipart/form-data">
+                    <div class="row formdiv">
+                        {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Titre'} }) }}
+                        <div class="file-field input-field col s4">
+                            <div class="btn">
+                                <span>File</span>
+                                {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
                         </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                        </div>
+                        {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
                     </div>
-                    {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
-                </div>
-                <div class="row error text-center">
-                    {{ form_errors(form.image) }}
-                </div>
-                {{ form_rest(form) }}
-            </form>
+                    <div class="row error text-center">
+                        {{ form_errors(form.image) }}
+                    </div>
+                    {{ form_rest(form) }}
+                </form>
+            {% endif %}
         </div>
         <div class="container listePostes">
 
