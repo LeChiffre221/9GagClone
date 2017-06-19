@@ -1,7 +1,6 @@
 <?php
 
 namespace NineGagBundle\Entity;
-//use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post

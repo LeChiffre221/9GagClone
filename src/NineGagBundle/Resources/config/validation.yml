@@ -1,7 +1,7 @@
-AppBundle\Entity\Post:
+NineGagBundle\Entity\Post:
     properties:
         image:
-           - File:
-                maxSize: 2000000
+            - File:
+                maxSize: 2000k
                 mimeTypes: [image/gif, image/jpeg, image/png, image/jpg]
                 mimeTypesMessage: Merci d'ajouter une image valide (gif, jpeg, png)

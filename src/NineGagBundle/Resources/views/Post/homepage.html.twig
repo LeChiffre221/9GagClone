@@ -4,18 +4,22 @@
         <h1 class="center-align">9GagClone</h1>
         <div class="row">
             <form id="formPost" method="POST" action="{{path('nine_gag_addPost')}}" enctype="multipart/form-data">
-                {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Title'} }) }}
-                {#<div class="file-field input-field col s4">
-                    <div class="btn">
-                        <span>File</span>#}
-                {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
-                {#</div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
+                <div class="row formdiv">
+                    {{ form_widget(form.title, {'attr': {'class': 'col s3 offset-s2', 'placeholder': 'Titre'} }) }}
+                    <div class="file-field input-field col s4">
+                        <div class="btn">
+                            <span>File</span>
+                            {{ form_widget(form.image, {'attr': {'class': 'col s4', 'name': 'image'} }) }}
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
                 </div>
-            </div>#}
-                {{ form_widget(form.save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
-                {{ form_errors(form) }}
+                <div class="row error text-center">
+                    {{ form_errors(form.image) }}
+                </div>
                 {{ form_rest(form) }}
             </form>
         </div>
@@ -24,7 +28,7 @@
             {% for post in postList %}
                 <div class="card col s6 cardPost" data-postId="{{ post.id }}">
                     <div class="card-content">
-                        <h3 class="card-title activator grey-text text-darken-4 center-align">{{ post.title }}</h3>
+                        <h2 class="card-title activator grey-text text-darken-4 center-align">{{ post.title }}</h2>
                     </div>
                     <div class="card-image waves-effect waves-block waves-light">
                         <img src="{{asset('uploads/images/' ~ post.image)}}"/>
@@ -32,25 +36,11 @@
                     <div class="card-content">
                         <div class="row">
                             <button id="buttonUp" class="buttonChangeScore offset-s3 col s2 green darken-3 btn">up</button>
-                            <p class="score col s2 center-align">{{ post.score }}</p>
+                            <strong><p class="score col s2 center-align">{{ post.score }}</p></strong>
                             <button class="buttonChangeScore col s2 btn red darken-3" id="buttonDown">down</button>
                             {#            <p>{{ post.user.login }}</p>#}
                         </div>
-                        <div class="row comments">
-                            {% for comment in post.comments %}
-                                <div class="card">
-                                    <div class="card-reveal">
-                                        <span class="card-title grey-text text-darken-4">{{ comment.content }}</span>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                            <form class="formComment" method="POST" action="{{path('nine_gag_addComment')}}">
-                                {{ form_widget(listFormComment[post.id].content, {'attr': {'class': 'col s8 offset-s2'} }) }}
-                                {{ form_widget(listFormComment[post.id].idPost, {'attr': {'value': post.id} }) }}
-                                {{ form_widget(listFormComment[post.id].save, {'attr': {'class': 'col s1 waves-effect waves-light btn btnSave'} }) }}
-                                {{ form_rest(listFormComment[post.id]) }}
-                            </form>
-                        </div>
+                        {% include 'NineGagBundle:Comment:comments.html.twig'%}
                     </div>
                 </div>
             {% endfor %}
@@ -77,7 +67,7 @@
                     dataType: 'JSON',
 
                     success: function (data) {
-                        $(button).closest("div").children(".score").html(data.newScore);
+                        $(button).closest("div").find(".score").html(data.newScore);
                     }
                 });
             });
@@ -102,7 +92,7 @@
                  $('body').on('submit', '.formComment', function (e) {
                      e.preventDefault();
                      console.log("submit");
-                     var idPost = $(this).closest(".cardPost").attr('data-postId');
+                     var form = this;
                      var urlAddComment = Routing.generate('nine_gag_addComment');
 
                      $.ajax({
@@ -112,7 +102,8 @@
                          dataType: 'JSON',
 
                          success: function (data) {
-                             $("body").closest(".formComment").closest(".comments").html($(data.result).find('[data-postId=' + idPost + ']').children(".comments").children());
+                             console.log(data.result);
+                             $(form).closest(".comments").html($(data.result).children());
                          }
                      })
                  });

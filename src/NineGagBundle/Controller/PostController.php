@@ -13,18 +13,12 @@ use NineGagBundle\Form\CommentType;
 
 class PostController extends Controller {
 
-    public function afficherPostsAction($form = null) {
-
-        $formPost = $this->get('form.factory')->create(PostType::class, new Post());
-        $postList = $this->getListPosts();
-        $listFormComment = [];
-        foreach ($postList as $post) {
-            $comment = new Comment();
-            $comment->setPost($post);
-            $formComment = $this->get('form.factory')->create(CommentType::class, $comment);
-            
-            $listFormComment[$post->getId()] = $formComment->createView();
+    public function afficherPostsAction($formPost = null) {
+        if ($formPost == null) {
+            $formPost = $this->get('form.factory')->create(PostType::class, new Post());
         }
+        $postList = $this->getListPosts();
+        $listFormComment = $this->createListFormComments($postList);
         return $this->render('NineGagBundle:Post:homepage.html.twig', [
                     'postList' => $this->getListPosts(),
                     'form' => $formPost->createView(),
@@ -56,6 +50,17 @@ class PostController extends Controller {
         return new JsonResponse(['message' => 'Success!', 'newScore' => $post->getScore()], 200);
     }
 
+    private function createListFormComments($postList) {
+        $listFormComment = [];
+        foreach ($postList as $post) {
+            $comment = new Comment();
+            $comment->setPost($post);
+            $formComment = $this->get('form.factory')->create(CommentType::class, $comment);
+            $listFormComment[$post->getId()] = $formComment->createView();
+        }
+        return $listFormComment;
+    }
+
     public function addPostAction(Request $request) {
 
 //        if (!$request->isXmlHttpRequest()) {
@@ -79,7 +84,14 @@ class PostController extends Controller {
             $em->flush();
             return $this->redirectToRoute('nine_gag_afficherPosts');
         }
-        return $this->redirectToRoute('nine_gag_afficherPosts', ['form' => $form]);
+        //return $this->redirectToRoute('nine_gag_afficherPosts', ['formPost' => $form]);
+        $postList = $this->getListPosts();
+        $listFormComment = $this->createListFormComments($postList);
+        return $this->render('NineGagBundle:Post:homepage.html.twig', [
+                    'postList' => $this->getListPosts(),
+                    'form' => $form->createView(),
+                    'listFormComment' => $listFormComment
+        ]);
     }
 
 }

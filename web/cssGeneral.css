@@ -9,9 +9,42 @@ and open the template in the editor.
 */
 
 .input-field{
-    margin-top: 0px;
+    margin-top: 0px !important;
+    
 }
 
 .btnSave{
-    margin-top: 10px;
+    height: 3em;
 }
+
+img{
+    margin: 20px;
+    width: 500px !important;
+}
+
+.card-image{
+    text-align: -webkit-center;
+}
+
+.lineButton{
+    margin: 10px;
+}
+
+.error li{
+    color: red;
+    text-align: center
+}
+
+.error ul{
+    text-align: center
+}
+
+
+.error{
+    margin: 5px;
+}
+
+.formdiv{
+    margin-bottom: 0px;
+}
+

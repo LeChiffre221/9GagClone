@@ -6,30 +6,30 @@
         {% block stylesheets %}
             {#            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/materialize/css/materialize.min.css') }}" />#}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-            <link rel="stylesheet" href="{{ asset('cssGeneral.css') }}">
+
 
             <link rel="stylesheet" type="text/css" href="{{ asset('bundles/materialize/css/materialize.min.css') }}" />
-
+            <link rel="stylesheet" href="{{ asset('cssGeneral.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-    <div>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
-        {% else %}
-            <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
-        {% endif %}
-    </div>
+        <div class="row lineButton">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('fos_user_security_logout') }}"><button class="buttonChangeScore offset-s10 col s2 red darken-3 btn">Se déconnecter</button></a>
+            {% else %}
+                <a href="{{ path('fos_user_security_login') }}"><button class="buttonChangeScore offset-s10 col s2 green darken-3 btn">Se connecter</button></a>
+            {% endif %}
+        </div>
     {% block body %}{% endblock %}
 
     {% block javascripts %}
-        <script src="{{ asset('bundles/materialize/js/materialize.js') }}"></script>
         <script src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('bundles/materialize/js/materialize.js') }}"></script>
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     {% endblock %}
 </body>
 
-     
+
 </html>
