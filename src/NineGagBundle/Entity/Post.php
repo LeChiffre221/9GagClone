@@ -23,11 +23,6 @@ class Post
     private $image;
 
     /**
-     * @var int
-     */
-    private $score;
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $comments;
@@ -96,38 +91,13 @@ class Post
     {
         return $this->image;
     }
-
-    /**
-     * Set score
-     *
-     * @param integer $score
-     *
-     * @return Post
-     */
-    public function setScore($score)
-    {
-        $this->score = $score;
-
-        return $this;
-    }
-
-    /**
-     * Get score
-     *
-     * @return int
-     */
-    public function getScore()
-    {
-        return $this->score;
-    }
-
+    
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->setScore(0);
     }
 
     /**

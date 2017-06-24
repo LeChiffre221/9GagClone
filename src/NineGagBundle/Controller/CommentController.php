@@ -38,6 +38,7 @@ class CommentController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $post = $em->getRepository('NineGagBundle:Post')->findOneBy(['id' => $comment->getIdPost()]);
             $comment->setPost($post);
+            $comment->setUser($this->getUser());
             $em->persist($comment);
             $em->flush();
         }

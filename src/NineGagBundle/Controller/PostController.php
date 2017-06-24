@@ -19,10 +19,12 @@ class PostController extends Controller {
         }
         $postList = $this->getListPosts();
         $listFormComment = $this->createListFormComments($postList);
+        $listScores = $this->createListScores($postList);
         return $this->render('NineGagBundle:Post:homepage.html.twig', [
                     'postList' => $this->getListPosts(),
                     'form' => $formPost->createView(),
-                    'listFormComment' => $listFormComment
+                    'listFormComment' => $listFormComment,
+                    'listScores' => $listScores
         ]);
     }
 
@@ -30,24 +32,6 @@ class PostController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $postRepository = $em->getRepository('NineGagBundle:Post');
         return $postRepository->findAll();
-    }
-
-    public function editScoreAction(Request $request, int $idPost, int $valueToChange) {
-
-        if (!$request->isXmlHttpRequest()) {
-            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $postRepository = $em->getRepository('NineGagBundle:Post');
-
-        $post = $postRepository->findOneBy(['id' => $idPost]);
-
-        $post->setScore($post->getScore() + $valueToChange);
-        $em->persist($post);
-        $em->flush();
-
-        return new JsonResponse(['message' => 'Success!', 'newScore' => $post->getScore()], 200);
     }
 
     private function createListFormComments($postList) {
@@ -59,6 +43,23 @@ class PostController extends Controller {
             $listFormComment[$post->getId()] = $formComment->createView();
         }
         return $listFormComment;
+    }
+
+    private function createListScores($postList) {
+        $listScores = [];
+        $em = $this->getDoctrine()->getManager();
+        $scoreRepository = $em->getRepository('NineGagBundle:Score');
+
+        foreach ($postList as $post) {
+            $result = $scoreRepository->getPostScore($post->getId());
+            if(empty($result[0])){
+                $postScore = 0;
+            }else{
+                $postScore = $result[0]['postScore'];
+            }
+            $listScores[$post->getId()] = $postScore;
+        }
+        return $listScores;
     }
 
     public function addPostAction(Request $request) {

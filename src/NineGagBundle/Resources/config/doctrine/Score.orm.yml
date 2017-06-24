@@ -1,7 +1,7 @@
-NineGagBundle\Entity\Post:
+NineGagBundle\Entity\Score:
     type: entity
     table: null
-    repositoryClass: NineGagBundle\Repository\PostRepository
+    repositoryClass: NineGagBundle\Repository\ScoreRepository
     id:
         id:
             type: integer
@@ -9,20 +9,19 @@ NineGagBundle\Entity\Post:
             generator:
                 strategy: AUTO
     fields:
-        title:
-            type: string
-            length: 255
-        image:
-            type: string
-            length: 255
+        value:
+            type: integer
     manyToOne:
+        post:
+          targetEntity: Post
+          inversedBy: scores
+          joinColumn:
+            name: post_id
+            referencedColumnName: id
         user:
           targetEntity: User
+          inversedBy: scores
           joinColumn:
             name: user_id
             referencedColumnName: id
-    oneToMany:
-        comments:
-          targetEntity: Comment
-          mappedBy: post
     lifecycleCallbacks: {  }

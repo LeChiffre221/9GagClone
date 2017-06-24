@@ -48,3 +48,10 @@ img{
     margin-bottom: 0px;
 }
 
+.comments .card-content{
+    padding: 15px !important;
+}
+
+.divError{
+    color: red;
+}

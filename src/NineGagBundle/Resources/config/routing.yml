@@ -2,10 +2,6 @@ fos_user_registration_confirmed:
     path:     /register/confirmed
     defaults: { _controller: NineGagBundle:Post:afficherPosts}
 
-nine_gag_homeegap:
-    path:     /test/test
-    defaults: { _controller: NineGagBundle:Post:afficherPosts}
-
 nine_gag_homepage:
     path:     /
     defaults: { _controller: NineGagBundle:Post:afficherPosts}
@@ -17,7 +13,7 @@ nine_gag_afficherPosts:
 
 nine_gag_scoreChange:
     path: /changeScore/{idPost}/{valueToChange}
-    defaults: { _controller: NineGagBundle:Post:editScore}
+    defaults: { _controller: NineGagBundle:Score:editScore}
     methods: [GET]
     requirements:
       idPost: \d+

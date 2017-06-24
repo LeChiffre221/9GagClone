@@ -26,8 +26,11 @@ class Comment
      * @var int
      */
     private $idPost;
-
-
+    
+    /** 
+     * @var \NineGagBundle\Entity\User
+     */
+    private $user;
     /**
      * Get id
      *
@@ -95,6 +98,15 @@ class Comment
     function setIdPost($idPost) {
         $this->idPost = $idPost;
     }
+
+    function getUser() {
+        return $this->user;
+    }
+
+    function setUser($user) {
+        $this->user = $user;
+    }
+
 
 
 }

@@ -38,10 +38,11 @@
                     <div class="card-content">
                         <div class="row">
                             <button id="buttonUp" class="buttonChangeScore offset-s3 col s2 green darken-3 btn">up</button>
-                            <strong><p class="score col s2 center-align">{{ post.score }}</p></strong>
+                            <strong><p class="score col s2 center-align">{{ listScores[post.id] }}</p></strong>
                             <button class="buttonChangeScore col s2 btn red darken-3" id="buttonDown">down</button>
-                            {#            <p>{{ post.user.login }}</p>#}
                         </div>
+                        <div class="divError row center-align"></div>
+
                         {% include 'NineGagBundle:Comment:comments.html.twig'%}
                     </div>
                 </div>
@@ -70,6 +71,12 @@
 
                     success: function (data) {
                         $(button).closest("div").find(".score").html(data.newScore);
+                        $(button).closest(".card-content").find(".divError").html("");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr);
+                        $(button).closest(".card-content").find(".divError").html(xhr.responseJSON.message);
+
                     }
                 });
             });

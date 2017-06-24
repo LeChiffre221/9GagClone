@@ -2,7 +2,7 @@
     <div class="card">
         {% for comment in post.comments %}
             <div class="card-content">
-                <span class="card-title grey-text text-darken-4">{{ comment.content }}</span>
+                <span class="card-content grey-text text-darken-4">{{ comment.user.username ~ " : " ~ comment.content }}</span>
             </div>
 
         {% endfor %}
